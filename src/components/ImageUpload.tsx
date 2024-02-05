@@ -31,17 +31,17 @@ export const ChunkedImageUploader: React.FC = () => {
       formData.append("currentChunk", String(i + 1));
       formData.append("totalChunks", String(chunks));
 
+      try {
+        const response = await api_interceptor.post("/fileupload", formData);
+        console.log("Upload successful for chunk", i + 1, "of", chunks);
+      } catch (error) {
+        console.error("Error uploading chunk", i + 1, "of", chunks, ":", error);
+      }
+
       uploadedChunks++;
 
       const progressPercentage = Math.round((uploadedChunks / chunks) * 100);
       setUploadProgress(progressPercentage);
-    }
-
-    try {
-      const response = await api_interceptor.post("/fileupload", formData);
-      console.log("Upload successful!", response);
-    } catch (error) {
-      console.error("Error uploading chunks:", error);
     }
 
     setImageFile(null);
@@ -63,7 +63,8 @@ export const ChunkedImageUploader: React.FC = () => {
       />
       <button
         onClick={uploadChunks}
-        className="bg-green-500 hover:bg-green-800 transition-all duration-300 ml-2 px-4 py-2 rounded-md">
+        className="bg-green-500 hover:bg-green-800 transition-all duration-300 ml-2 px-4 py-2 rounded-md"
+      >
         Upload
       </button>
       {uploadProgress > 0 && <div>Upload Progress: {uploadProgress}%</div>}
