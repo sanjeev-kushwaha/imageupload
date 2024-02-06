@@ -63,8 +63,7 @@ export const ChunkedImageUploader: React.FC = () => {
       />
       <button
         onClick={uploadChunks}
-        className="bg-green-500 hover:bg-green-800 transition-all duration-300 ml-2 px-4 py-2 rounded-md"
-      >
+        className="bg-green-500 hover:bg-green-800 transition-all duration-300 ml-2 px-4 py-2 rounded-md">
         Upload
       </button>
       {uploadProgress > 0 && <div>Upload Progress: {uploadProgress}%</div>}
